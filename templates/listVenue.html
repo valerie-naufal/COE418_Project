@@ -7,7 +7,10 @@
     <title>Locatable</title>
 
     <!-- custom css file link -->
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/createAccount.css')}}"
+    />
   </head>
 
   <body>
@@ -18,19 +21,19 @@
         <input
           name="firstName"
           type="text"
-          placeholder="First Name"
+          placeholder="Venue Name"
           class="box"
         />
         <input
-          name="lastName"
+          name="location"
           type="text"
-          placeholder="Last Name"
+          placeholder="Location"
           class="box"
         />
         <input
-          name="phoneNb"
+          name="capacity"
           type="text"
-          placeholder="Phone Number"
+          placeholder="Capacity"
           class="box"
         />
         <input

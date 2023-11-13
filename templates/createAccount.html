@@ -7,14 +7,17 @@
     <title>Locatable</title>
 
     <!-- custom css file link -->
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/createAccount.css')}}"
+    />
   </head>
 
   <body>
     <!--account form starts-->
     <div class="account-form">
       <h3>create your account</h3>
-      <form method="POST" action="http://localhost:3000/create">
+      <form method="POST" action="/createAccount">
         <input
           name="firstName"
           type="text"

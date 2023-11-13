@@ -1,0 +1,374 @@
+* {
+  font-family: "Courier New", Courier, monospace;
+}
+
+html {
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+}
+
+.explore-main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  overflow-x: hidden;
+}
+.explore-main-container h1 {
+  color: black;
+}
+
+/* Navbar Styling */
+.navbar-container {
+  width: 100%;
+  height: 8%;
+  background-color: #5497a7;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.navbar-title {
+  font-size: 2rem;
+  margin: 0 0 0 5%;
+  cursor: pointer;
+}
+
+.navbar-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 100%;
+  width: 40%;
+  margin: 0 3%;
+}
+.navbar-list p {
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0 15px 0;
+}
+
+.activeTab {
+  border-bottom: solid white 2px;
+}
+
+.account-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.account-button {
+  background-color: grey;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account-button p {
+  margin: 0;
+  padding: 0;
+}
+
+.account-menu-content {
+  position: absolute;
+  top: 55px;
+  right: -1000%;
+  border: solid black 1px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  color: black;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.account-menu-content.active {
+  right: -100%;
+}
+
+.account-menu-content h1 {
+  font-size: 1rem;
+}
+.account-menu-content p {
+  color: black;
+  background-color: #5497a7;
+  width: 70%;
+  text-align: center;
+  padding: 5% 0;
+  border-radius: 10px;
+}
+.signIn-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.input-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  padding: 2%;
+  margin-bottom: 3%;
+}
+
+.signIn-form > button {
+  margin: 3% 0;
+}
+/* Switch Styling*/
+label {
+  font-size: 13px;
+  color: black;
+  font-weight: 500;
+}
+.user-selector-switch {
+  display: inline-block;
+  margin: 0px;
+}
+
+.user-selector-switch > label.user-selector-switch-inner {
+  margin: 0px;
+  width: 140px;
+  height: 30px;
+  background: #e0e0e0;
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease;
+  /*box-shadow: 0px 0px 8px 0px rgba(17, 17, 17, 0.34) inset;*/
+  display: block;
+}
+.user-selector-switch > label.user-selector-switch-inner:before {
+  content: attr(data-on);
+  position: absolute;
+  font-size: 10px;
+  font-weight: 500;
+  top: 10px;
+  right: 20px;
+}
+
+.user-selector-switch > label.user-selector-switch-inner::after {
+  content: attr(data-off);
+  width: 70px;
+  height: 16px;
+  background: #fff;
+  border-radius: 26px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0px 0px 6px -2px #111;
+  padding: 5px 0px;
+}
+
+.user-selector-switch input[type="checkbox"] {
+  cursor: pointer;
+  width: 50px;
+  height: 25px;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  margin: 0px;
+}
+
+.user-selector-switch
+  input[type="checkbox"]:checked
+  + label.user-selector-switch-inner {
+  color: black;
+}
+
+.user-selector-switch
+  input[type="checkbox"]:checked
+  + label.user-selector-switch-inner:after {
+  content: attr(data-on);
+  left: 68px;
+}
+
+.user-selector-switch
+  input[type="checkbox"]:checked
+  + label.user-selector-switch-inner:before {
+  content: attr(data-off);
+  right: auto;
+  left: 10px;
+}
+
+/* Venues List Container Styling */
+
+.venue-items-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+}
+
+.venue-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  border: solid black 1px;
+  margin: 2%;
+  cursor: pointer;
+}
+
+.venue-image {
+  height: 100%;
+  width: 100%;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid black 2px;
+  color: black;
+}
+
+.venue-title {
+  color: black;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100vh;
+  /* Full height */
+  overflow: hidden;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+
+.modal-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100vh;
+  /* Full height */
+  overflow: hidden;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 55%;
+  background-color: white;
+  border-radius: 15px;
+}
+.modal-image {
+  width: 50%;
+  height: 100%;
+  border-right: solid black 2px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.modal-text {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  border: solid red 2px;
+}
+.reservation-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 10%;
+  border-radius: 10px;
+  background-color: #5497a7;
+  color: white;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  margin: 4% 0;
+}
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 10%;
+  right: 3%;
+  color: #f1f1f1;
+  font-size: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+.footer-container {
+  width: 100%;
+  height: 200px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #5497a7;
+}
+.footer-container p {
+  font-weight: bold;
+  font-size: 1.5rem;
+}

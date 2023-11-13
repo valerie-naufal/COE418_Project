@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Locatable</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/explore.css')}}"
+    />
+    <link rel="shortcut icon" href="#" />
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="explore-main-container">
+      <div class="navbar-container">
+        <p class="navbar-title" onclick="location.assign('/')">Locatable</p>
+        <div class="navbar-list">
+          <p onclick="location.assign('/explore')">EXPLORE</p>
+          {% if session["email"] and session["user_mode"] == "OWNER" %}
+          <p onclick="location.assign('/listVenue')">LIST MY VENUE</p>
+          {% else %}
+          <p>LIST MY VENUE</p>
+          {% endif %}
+
+          <div class="account-div">
+            <div class="account-button" id="account-button">
+              <p id="account-button-content"></p>
+            </div>
+            <div class="account-menu-content" id="account-menu-loggedOut">
+              <p onclick="logOut()">LOG OUT</p>
+            </div>
+            <div class="account-menu-content" id="account-menu-loggedIn">
+              <h1>SIGN IN</h1>
+              <form
+                action=""
+                method="post"
+                class="signIn-form"
+                id="signIn-form"
+              >
+                <div class="input-section">
+                  <label for="email">Email:</label>
+                  <input type="email" id="email" name="email" />
+                </div>
+
+                <div class="input-section">
+                  <label for="password">Password:</label>
+                  <input type="password" id="password" name="password" />
+                </div>
+                <div class="input-section">
+                  <label class="switch user-selector-switch">
+                    <input
+                      type="checkbox"
+                      name="user_mode"
+                      id="user_mode"
+                      value="1"
+                    />
+                    <label
+                      id="user_mode_label"
+                      for="user_mode"
+                      data-on="OWNER"
+                      data-off="CUSTOMER"
+                      class="user-selector-switch-inner"
+                    ></label>
+                  </label>
+                </div>
+                <button type="submit">Sign In</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h1>Available Venues</h1>
+      <div class="venue-items-container">
+        {% for venue in venuesList %}
+        <div class="venue-item">
+          <div class="venue-image" onclick="openModal('venue{{ loop.index }}')">
+            IMAGE
+          </div>
+          <p class="venue-title">{{venue.name}}</p>
+        </div>
+        <div id="venue{{ loop.index }}" class="modal">
+          <span class="close" onclick="closeModal('venue{{ loop.index }}')">
+            <i class="fas fa-times"></i>
+          </span>
+          <div class="modal-content">
+            <div class="modal-image"></div>
+            <div class="modal-text">
+              <p>{{venue.name}}</p>
+              <p>Location: {{venue.location}}</p>
+              <p>Type: {{venue.type}}</p>
+              <p>Capacity: {{venue.capacity}}</p>
+              <div class="reservation-button">Reserve Now!</div>
+              <input type="datetime-local" name="reservation-datetime" />
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="footer-container">
+        <p>The place to find the venue you need!</p>
+        <p>DB Project © 2023</p>
+      </div>
+    </div>
+    <script>
+      let accountButton = document.getElementById("account-button");
+      let loggedInMenu = document.getElementById("account-menu-loggedIn");
+      let loggedOutMenu = document.getElementById("account-menu-loggedOut");
+      let loginForm = document.getElementById("signIn-form");
+
+      accountButton.onclick = () => {
+        loggedInMenu.classList.toggle("active");
+        loggedOutMenu.classList.toggle("active");
+      };
+
+      window.onload = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            let response = JSON.parse(xhr.response);
+            if (response) {
+              if (response.loggedIn) {
+                // User is signed In --> show log out menu
+                loggedOutMenu.style.display = "flex";
+                loggedInMenu.style.display = "none";
+              } else {
+                // User is not signed In --> show log in menu
+                loggedOutMenu.style.display = "none";
+                loggedInMenu.style.display = "flex";
+              }
+            }
+          }
+        };
+        xhr.open("GET", "/loggedIn");
+        xhr.send();
+      };
+
+      loginForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let userMode = document.getElementById("user_mode");
+
+        if (email.value == "" || password.value == "") {
+          alert("Ensure you input a value in both fields!");
+        } else {
+          let xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = () => {
+            return;
+          };
+          xhr.open("POST", "/signIn");
+          xhr.setRequestHeader("Content-type", "application/json");
+          let data = JSON.stringify({
+            email: email.value,
+            password: password.value,
+            userMode: userMode.checked,
+          });
+          xhr.send(data);
+        }
+      });
+
+      function logOut() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+          if (xhr.response == "signedOut") {
+            window.location.assign("/");
+          }
+        };
+        xhr.open("POST", "/signOut");
+        xhr.send();
+      }
+
+      function openModal(id) {
+        document.getElementById(id).classList.replace("modal", "modal-open");
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.replace("modal-open", "modal");
+      }
+    </script>
+  </body>
+</html>
