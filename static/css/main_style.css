@@ -242,41 +242,26 @@ label {
   align-items: center;
   position: relative;
 }
-.search-bar-subsection {
+.search-bar-container form {
   width: 100%;
-  height: 100%;
-  border-right: solid black 2px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+
 }
-.search-bar-section p {
-  margin: 0;
-}
-.search-bar-section img {
-  width: 24px;
-  cursor: pointer;
-}
-.search-bar-location {
+
+#locations{
   border-radius: 10px 0 0 10px;
 }
 
-.dropdown-menu {
-  visibility: hidden;
-  position: absolute;
-  top: 52px;
+.search-bar-section select{
+  width:100%;
+  height:100%;
   background-color: white;
-  width: 100%;
-  height: 200px;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border: none;
+  border-radius: 10px 0 0 10px;
+  font-size: 1.2rem;
 }
 
-.dropdown-menu:first-of-type {
-  border-top-left-radius: 10px;
-}
 
-.search-bar-btn {
+.search-button-container {
   width: 7%;
   height: 100%;
   display: flex;
@@ -285,13 +270,166 @@ label {
   cursor: pointer;
 }
 
-.search-bar-btn:hover {
+.search-button-container:hover {
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.search-bar-btn img {
-  height: 80%;
+.search-button-container button {
+  height: 100%;
+  outline: none;
+  border: none;
+  background-color: white;
 }
+
+.search-button-container img {
+  height: 80%;
+  
+}
+
+.venue-items-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: auto;
+}
+
+.venue-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  border-radius: 15px;
+  border: solid black 1px;
+  margin: 2%;
+  cursor: pointer;
+}
+
+.venue-image {
+  height: 100%;
+  width: 100%;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: solid black 2px;
+  color: black;
+}
+
+.venue-title {
+  color: black;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100vh;
+  /* Full height */
+  overflow: hidden;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+
+.modal-open {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100vh;
+  /* Full height */
+  overflow: hidden;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  height: 55%;
+  background-color: white;
+  border-radius: 15px;
+}
+.modal-image {
+  width: 50%;
+  height: 100%;
+  border-right: solid black 2px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.modal-text {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  color: black;
+  border: solid red 2px;
+}
+.reservation-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  height: 10%;
+  border-radius: 10px;
+  background-color: #5497a7;
+  color: white;
+  font-weight: bold;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  cursor: pointer;
+  margin: 4% 0;
+}
+/* The Close Button */
+.close {
+  position: absolute;
+  top: 10%;
+  right: 3%;
+  color: #f1f1f1;
+  font-size: 50px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 .home-cards-container {
   display: flex;

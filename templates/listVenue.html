@@ -16,26 +16,11 @@
   <body>
     <!--account form starts-->
     <div class="account-form">
-      <h3>create your account</h3>
+      <h3>list your venue</h3>
       <form method="POST" action="http://localhost:3000/create">
-        <input
-          name="firstName"
-          type="text"
-          placeholder="Venue Name"
-          class="box"
-        />
-        <input
-          name="location"
-          type="text"
-          placeholder="Location"
-          class="box"
-        />
-        <input
-          name="capacity"
-          type="text"
-          placeholder="Capacity"
-          class="box"
-        />
+        <input name="name" type="text" placeholder="Venue Name" class="box" />
+        <input name="location" type="text" placeholder="Location" class="box" />
+        <input name="capacity" type="text" placeholder="Capacity" class="box" />
         <input
           name="email"
           type="email"
@@ -48,16 +33,8 @@
           placeholder="Password"
           class="box"
         />
-        <div class="checkbox-sect">
-          <label> venue owner </label>
-          <input type="radio" name="userMode" value="owner" />
-        </div>
-        <div class="checkbox-sect">
-          <label> customer </label>
-          <input type="radio" name="userMode" value="customer" />
-        </div>
 
-        <input type="submit" value="create now" class="btn" />
+        <input type="submit" value="list" class="btn" />
       </form>
     </div>
     <!--account form ends-->

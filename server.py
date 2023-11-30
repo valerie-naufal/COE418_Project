@@ -66,6 +66,30 @@ def signOut():
 
 
 
+# GET method to retieve locations
+@app.get("/locations")
+def locations():
+    locations = utils.get_locations()
+    return locations
+
+# GET method to retieve categories
+@app.get("/categories")
+def categories():
+    categories = utils.get_categories()
+    return categories
+
+# GET method to retieve capacities
+@app.get("/capacities")
+def capacities():
+    capacities = utils.get_capacities()
+    return capacities
+
+
+@app.post("/search")
+def search_route():
+    data = request.get_json()
+    results = utils.search(data["location"], data["category"],data["capacity"])
+    return results
 
 if __name__ == "__main__":
     print("Server Starting ...")

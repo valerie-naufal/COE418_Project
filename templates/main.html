@@ -77,47 +77,41 @@
       </div>
       <div class="welcome-container">
         <h1>WELCOME SECTION</h1>
-        <div class="search-bar-container">
-          <div class="search-bar-section search-bar-location">
-            <div class="search-bar-subsection">
-              <p>Choose Location</p>
-              <img
-                id="dropdown-arrow-location"
-                src="../static/images/arrow-down.svg"
-                alt="dropdown-arrow-icon"
-                onclick="updateArrowIcon('location')"
-              />
-            </div>
-            <div class="dropdown-menu" id="location-dropdown"></div>
+
+        <form
+          class="search-bar-container"
+          id="search-form"
+          action=""
+          method="POST"
+        >
+          <div class="search-bar-section">
+            <select name="location" id="locations">
+              <option value="-">Choose Location</option>
+            </select>
           </div>
-          <div class="search-bar-section search-bar-category">
-            <div class="search-bar-subsection">
-              <p>Choose Category</p>
-              <img
-                id="dropdown-arrow-category"
-                src="../static/images/arrow-down.svg"
-                alt="dropdown-arrow-icon"
-                onclick="updateArrowIcon('category')"
-              />
-            </div>
-            <div class="dropdown-menu" id="category-dropdown"></div>
+
+          <div class="search-bar-section">
+            <select name="category" id="categories">
+              <option value="-">Choose Category</option>
+            </select>
           </div>
-          <div class="search-bar-section search-bar-capacity">
-            <div class="search-bar-subsection">
-              <p>Choose Capacity</p>
-              <img
-                id="dropdown-arrow-capacity"
-                src="../static/images/arrow-down.svg"
-                alt="dropdown-arrow-icon"
-                onclick="updateArrowIcon('capacity')"
-              />
-            </div>
+
+          <div class="search-bar-section">
+            <select name="capacity" id="capacities">
+              <option value="-">Choose Capacity</option>
+            </select>
           </div>
-          <div class="search-bar-btn">
-            <img src="../static/images/search.svg" alt="search-icon" />
+
+          <div class="search-button-container">
+            <button type="submit">
+              <img src="../static/images/search.svg" />
+            </button>
           </div>
-        </div>
+        </form>
       </div>
+
+      <div class="venue-items-container"></div>
+
       <div class="home-cards-container">
         <div class="home-cards-item">
           <img
@@ -206,6 +200,7 @@
       let loggedInMenu = document.getElementById("account-menu-loggedIn");
       let loggedOutMenu = document.getElementById("account-menu-loggedOut");
       let loginForm = document.getElementById("signIn-form");
+      let searchForm = document.getElementById("search-form");
 
       accountButton.onclick = () => {
         loggedInMenu.classList.toggle("active");
@@ -213,6 +208,7 @@
       };
 
       window.onload = () => {
+        populateDropdowns();
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
           if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -236,7 +232,6 @@
 
       loginForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        console.log("line 239");
         let email = document.getElementById("email");
         let password = document.getElementById("password");
         let userMode = document.getElementById("user_mode");
@@ -271,6 +266,137 @@
         xhr.open("POST", "/signOut");
         xhr.send();
       }
+
+      function populateDropdowns() {
+        let locationsXHR = new XMLHttpRequest();
+        locationsXHR.onreadystatechange = () => {
+          if (locationsXHR.readyState === XMLHttpRequest.DONE) {
+            if (locationsXHR.response) {
+              let locations = JSON.parse(locationsXHR.response);
+              console.log(locations);
+              locations.forEach((location) => {
+                let locationElement =
+                  "<option value='" +
+                  location.location +
+                  "' >" +
+                  location.location +
+                  "</option>";
+                document
+                  .querySelector("#locations")
+                  .insertAdjacentHTML("beforeend", locationElement);
+              });
+            }
+          }
+        };
+
+        locationsXHR.open("GET", "/locations");
+        locationsXHR.send();
+
+        let categoryXHR = new XMLHttpRequest();
+        categoryXHR.onreadystatechange = () => {
+          if (categoryXHR.readyState === XMLHttpRequest.DONE) {
+            if (categoryXHR.response) {
+              let categories = JSON.parse(categoryXHR.response);
+              categories.forEach((category) => {
+                let categoryElement =
+                  "<option value='" +
+                  category.category +
+                  "' >" +
+                  category.category +
+                  "</option>";
+                document
+                  .querySelector("#categories")
+                  .insertAdjacentHTML("beforeend", categoryElement);
+              });
+            }
+          }
+        };
+        categoryXHR.open("GET", "/categories");
+        categoryXHR.send();
+
+        let capacitiesXHR = new XMLHttpRequest();
+        capacitiesXHR.onreadystatechange = () => {
+          if (capacitiesXHR.readyState === XMLHttpRequest.DONE) {
+            if (capacitiesXHR.response) {
+              let capacities = JSON.parse(capacitiesXHR.response);
+              console.log(capacities);
+              capacities.forEach((capacity) => {
+                let capacityElement =
+                  "<option value='" +
+                  capacity.capacity +
+                  "' >" +
+                  capacity.capacity +
+                  "</option>";
+                document
+                  .querySelector("#capacities")
+                  .insertAdjacentHTML("beforeend", capacityElement);
+              });
+            }
+          }
+        };
+        capacitiesXHR.open("GET", "/capacities");
+        capacitiesXHR.send();
+      }
+
+      function openModal(id) {
+        document.getElementById(id).classList.replace("modal", "modal-open");
+      }
+
+      function closeModal(id) {
+        document.getElementById(id).classList.replace("modal-open", "modal");
+      }
+
+      searchForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        let location = document.getElementById("locations");
+        let category = document.getElementById("categories");
+        let capacity = document.getElementById("capacities");
+
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange =  () => {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.response) {
+              let results = JSON.parse(xhr.response);
+              results.forEach((venue,index) => {
+                let venueElement = '<div class="venue-item"> ' +
+                  "<div class='venue-image' onclick='openModal('venue0')'> IMAGE </div>" +
+                    '<p class="venue-title">'+ venue.name +'</p> '+
+                  '</div>' +
+                  '<div id="venue'+ index +'" class="modal">' +
+                  '<span class="close" onclick="closeModal("venue0")">' +
+                    '<i class="fas fa-times"></i>'+
+                  '</span>' +
+                  '<div class="modal-content">'+
+                    '<div class="modal-image"></div>' +
+                    '<div class="modal-text">' +
+                      '<p>' + venue.name + '</p>' +
+                      '<p>Location:' + venue.location + '</p>' +
+                      '<p>Category:' + venue.category +'</p>' +
+                      '<p>Capacity:' + venue.capacity+ '</p>' +
+                      '<div class="reservation-button">Reserve Now!</div>' +
+                      '<input type="datetime-local" name="reservation-datetime" />' +
+                    '</div>' +
+                  '</div>' +
+                '</div>'
+                
+                document.querySelector(".venue-items-container").insertAdjacentHTML("beforeend",venueElement);
+              });
+            }
+          }
+        };
+
+        xhr.open("POST", "/search");
+        xhr.setRequestHeader("Content-type", "application/json");
+        let data = JSON.stringify({
+          location:location.value,
+          category: category.value,
+          capacity: capacity.value
+        });
+
+        xhr.send(data);
+
+      });
+
     </script>
   </body>
 </html>
