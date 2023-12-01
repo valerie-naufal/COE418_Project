@@ -30,7 +30,11 @@
 
           <div class="account-div">
             <div class="account-button" id="account-button">
-              <p id="account-button-content"></p>
+              {% if session["email"]  %}
+              <p id="account-button-content">{{ session["email"][0] }}</p>
+              {% else %}
+              <p class="account-button-content"></p>
+              {% endif %}
             </div>
             <div class="account-menu-content" id="account-menu-loggedOut">
               <p onclick="logOut()">LOG OUT</p>
@@ -76,7 +80,7 @@
         </div>
       </div>
       <div class="welcome-container">
-        <h1>WELCOME SECTION</h1>
+        <h1>Find The Venue of Your Dreams</h1>
 
         <form
           class="search-bar-container"
@@ -145,56 +149,6 @@
     </div>
 
     <script>
-      let locationArrow = document.getElementById("dropdown-arrow-location");
-      let categoryArrow = document.getElementById("dropdown-arrow-category");
-      let capacityArrow = document.getElementById("dropdown-arrow-capacity");
-
-      function updateArrowIcon(element) {
-        switch (element) {
-          case "location":
-            let locationSrc = locationArrow.src.substr(
-              locationArrow.src.indexOf("-") + 1
-            );
-
-            if (locationSrc === "down.svg") {
-              locationArrow.src = "../static/images/arrow-up.svg";
-              document.getElementById("location-dropdown").style.visibility =
-                "visible";
-            } else {
-              locationArrow.src = "../static/images/arrow-down.svg";
-              document.getElementById("location-dropdown").style.visibility =
-                "hidden";
-            }
-            break;
-
-          case "category":
-            let categorySrc = categoryArrow.src.substr(
-              categoryArrow.src.indexOf("-") + 1
-            );
-
-            if (categorySrc === "down.svg") {
-              categoryArrow.src = "../static/images/arrow-up.svg";
-              document.getElementById("category-dropdown").style.visibility =
-                "visible";
-            } else {
-              categoryArrow.src = "../static/images/arrow-down.svg";
-              document.getElementById("category-dropdown").style.visibility =
-                "hidden";
-            }
-            break;
-
-          case "capacity":
-            let capacitySrc = capacityArrow.src.substr(
-              capacityArrow.src.indexOf("-") + 1
-            );
-            if (capacitySrc === "down.svg") {
-              capacityArrow.src = "../static/images/arrow-up.svg";
-            } else {
-              capacityArrow.src = "../static/images/arrow-down.svg";
-            }
-            break;
-        }
-      }
 
       let accountButton = document.getElementById("account-button");
       let loggedInMenu = document.getElementById("account-menu-loggedIn");
@@ -357,13 +311,14 @@
           if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.response) {
               let results = JSON.parse(xhr.response);
+              document.querySelector(".venue-items-container").innerHTML = "";
               results.forEach((venue,index) => {
                 let venueElement = '<div class="venue-item"> ' +
-                  "<div class='venue-image' onclick='openModal('venue0')'> IMAGE </div>" +
+                  "<div class='venue-image' onclick='openModal(\"venue" + index + "\")'> IMAGE </div>" +
                     '<p class="venue-title">'+ venue.name +'</p> '+
                   '</div>' +
                   '<div id="venue'+ index +'" class="modal">' +
-                  '<span class="close" onclick="closeModal("venue0")">' +
+                  "<span class='close' onclick='closeModal(\"venue" + index + "\")'>" +
                     '<i class="fas fa-times"></i>'+
                   '</span>' +
                   '<div class="modal-content">'+

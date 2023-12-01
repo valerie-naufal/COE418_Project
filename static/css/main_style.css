@@ -214,11 +214,15 @@ label {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: grey;
+  background-image: url("../images/venue-wallpaper.jpg");
+  background-size: 100%;
+  
 }
 
 .welcome-container h1 {
-  color: black;
+  color: white;
+  font-size: 3.5rem;
+  margin-bottom: 10%;
 }
 .search-bar-container {
   width: 70%;
