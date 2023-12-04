@@ -24,7 +24,7 @@ def createPage():
 @app.post('/createAccount')
 def createAccount():
     print("account created")
-    return ""
+    return redirect("/")
 
 @app.get('/listVenue')
 def listPage():
@@ -32,22 +32,40 @@ def listPage():
 
 @app.post('/listVenue')
 def listVenue():
-    print("venue created")
-    return ""
+    print("in post listVenue")
+    name = request.form["name"]
+    location = request.form["location"]
+    category = request.form["category"]
+    capacity = request.form["capacity"]
+    utils.listVenue(name,capacity,location,category,session["email"])
+    return redirect("/")
 
 # POST Method to handle user sign in
 @app.post('/signIn')
 def signInPost():
-    print("in sign in")
     data = request.get_json()
-    session["email"] = data["email"]
     # Based on user mode selector in Sign In Form
     if(data["userMode"] == True):
-        session["user_mode"] = "OWNER"
+        status = utils.signIn(data["email"],data["password"],"OWNER")
+        print(status)
+        if status == "signedIn":
+            print("inside if")
+            session["user_mode"] = "OWNER"
+            session["email"] = data["email"]
+            return "signedIn"
+        else :
+            print("inside else")
+            return "error"
+        
     else:
-        session["user_mode"] = "CUSTOMER"
+        status = utils.signIn(data["email"],data["password"],"CUSTOMER")
+        if status == "signedIn":
+            session["user_mode"] = "CUSTOMER"
+            session["email"] = data["email"]
+            return "signedIn"
+        else :
+            return "error"
 
-    return "signedIn"
 
 # GET Method to check logIn status
 @app.get('/loggedIn')
@@ -64,26 +82,11 @@ def signOut():
     session["user_mode"] = None
     return "signedOut"
 
-
-
-# GET method to retieve locations
-@app.get("/locations")
-def locations():
-    locations = utils.get_locations()
-    return locations
-
-# GET method to retieve categories
-@app.get("/categories")
-def categories():
-    categories = utils.get_categories()
-    return categories
-
-# GET method to retieve capacities
-@app.get("/capacities")
-def capacities():
-    capacities = utils.get_capacities()
-    return capacities
-
+# GET method to populate dropdowns
+@app.get("/dropdowns")
+def dropdowns():
+    dropdowns = utils.get_dropdowns()
+    return dropdowns
 
 @app.post("/search")
 def search_route():

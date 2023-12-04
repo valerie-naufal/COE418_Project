@@ -31,7 +31,11 @@
 
           <div class="account-div">
             <div class="account-button" id="account-button">
-              <p id="account-button-content"></p>
+              {% if session["email"] %}
+              <p id="account-button-content">{{ session["email"][0] }}</p>
+              {% else %}
+              <p class="account-button-content"></p>
+              {% endif %}
             </div>
             <div class="account-menu-content" id="account-menu-loggedOut">
               <p onclick="logOut()">LOG OUT</p>
@@ -72,6 +76,7 @@
                 </div>
                 <button type="submit">Sign In</button>
               </form>
+              <a href="/createAccount">Don't Have An Account?</a>
             </div>
           </div>
         </div>
@@ -96,8 +101,10 @@
               <p>Location: {{venue.location}}</p>
               <p>Category: {{venue.category}}</p>
               <p>Capacity: {{venue.capacity}}</p>
+              {% if session["email"] and session["user_mode"]=="CUSTOMER" %}
               <div class="reservation-button">Reserve Now!</div>
               <input type="datetime-local" name="reservation-datetime" />
+              {% endif %}
             </div>
           </div>
         </div>
@@ -153,7 +160,14 @@
         } else {
           let xhr = new XMLHttpRequest();
           xhr.onreadystatechange = () => {
-            return;
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.response == "signedIn") {
+                window.location.assign("/explore");
+              }
+              else {
+                alert("Wrong username or password")
+              }
+            }
           };
           xhr.open("POST", "/signIn");
           xhr.setRequestHeader("Content-type", "application/json");
@@ -170,7 +184,7 @@
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
           if (xhr.response == "signedOut") {
-            window.location.assign("/");
+            window.location.assign("/explore");
           }
         };
         xhr.open("POST", "/signOut");

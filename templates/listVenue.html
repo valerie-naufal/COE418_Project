@@ -16,25 +16,14 @@
   <body>
     <!--account form starts-->
     <div class="account-form">
-      <h3>list your venue</h3>
-      <form method="POST" action="http://localhost:3000/create">
+      <h3>List Your Venue</h3>
+      <form method="POST" action="/listVenue">
         <input name="name" type="text" placeholder="Venue Name" class="box" />
         <input name="location" type="text" placeholder="Location" class="box" />
+        <input name="category" type="text" placeholder="Category" class="box" />
         <input name="capacity" type="text" placeholder="Capacity" class="box" />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email Address"
-          class="box"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          class="box"
-        />
 
-        <input type="submit" value="list" class="btn" />
+        <input type="submit" value="LIST MY VENUE" class="btn" />
       </form>
     </div>
     <!--account form ends-->

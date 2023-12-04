@@ -30,7 +30,7 @@
 
           <div class="account-div">
             <div class="account-button" id="account-button">
-              {% if session["email"]  %}
+              {% if session["email"] %}
               <p id="account-button-content">{{ session["email"][0] }}</p>
               {% else %}
               <p class="account-button-content"></p>
@@ -42,7 +42,7 @@
             <div class="account-menu-content" id="account-menu-loggedIn">
               <h1>SIGN IN</h1>
               <form
-                action=""
+          
                 method="post"
                 class="signIn-form"
                 id="signIn-form"
@@ -75,6 +75,7 @@
                 </div>
                 <button type="submit">Sign In</button>
               </form>
+              <a href="/createAccount">Don't Have An Account?</a>
             </div>
           </div>
         </div>
@@ -149,7 +150,6 @@
     </div>
 
     <script>
-
       let accountButton = document.getElementById("account-button");
       let loggedInMenu = document.getElementById("account-menu-loggedIn");
       let loggedOutMenu = document.getElementById("account-menu-loggedOut");
@@ -190,25 +190,27 @@
         let password = document.getElementById("password");
         let userMode = document.getElementById("user_mode");
 
-        if (email.value == "" || password.value == "") {
-          alert("Ensure you input a value in both fields!");
-        } else {
-          let xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = function () {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.response == "signedIn") {
               window.location.assign("/");
             }
-          };
-          xhr.open("POST", "/signIn");
-          xhr.setRequestHeader("Content-type", "application/json");
-          let data = JSON.stringify({
-            email: email.value,
-            password: password.value,
-            userMode: userMode.checked,
-          });
-          xhr.send(data);
-        }
-      });
+            else {
+                alert("Wrong username or password")
+            }
+          }
+        };
+        xhr.open("POST", "/signIn");
+        xhr.setRequestHeader("Content-type", "application/json");
+        let data = JSON.stringify({
+          email: email.value,
+          password: password.value,
+          userMode: userMode.checked,
+        });
+        xhr.send(data);
+      }
+    );
 
       function logOut() {
         let xhr = new XMLHttpRequest();
@@ -222,65 +224,34 @@
       }
 
       function populateDropdowns() {
-        let locationsXHR = new XMLHttpRequest();
-        locationsXHR.onreadystatechange = () => {
-          if (locationsXHR.readyState === XMLHttpRequest.DONE) {
-            if (locationsXHR.response) {
-              let locations = JSON.parse(locationsXHR.response);
-              console.log(locations);
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.response) {
+              let results = JSON.parse(xhr.response);
+              let locations = results["locations"];
+              let categories = results["categories"];
+              let capacities = results["capacities"];
+
               locations.forEach((location) => {
                 let locationElement =
-                  "<option value='" +
-                  location.location +
-                  "' >" +
-                  location.location +
-                  "</option>";
+                  "<option value='" + location + "' >" + location + "</option>";
                 document
                   .querySelector("#locations")
                   .insertAdjacentHTML("beforeend", locationElement);
               });
-            }
-          }
-        };
 
-        locationsXHR.open("GET", "/locations");
-        locationsXHR.send();
-
-        let categoryXHR = new XMLHttpRequest();
-        categoryXHR.onreadystatechange = () => {
-          if (categoryXHR.readyState === XMLHttpRequest.DONE) {
-            if (categoryXHR.response) {
-              let categories = JSON.parse(categoryXHR.response);
               categories.forEach((category) => {
                 let categoryElement =
-                  "<option value='" +
-                  category.category +
-                  "' >" +
-                  category.category +
-                  "</option>";
+                  "<option value='" + category + "' >" + category + "</option>";
                 document
                   .querySelector("#categories")
                   .insertAdjacentHTML("beforeend", categoryElement);
               });
-            }
-          }
-        };
-        categoryXHR.open("GET", "/categories");
-        categoryXHR.send();
 
-        let capacitiesXHR = new XMLHttpRequest();
-        capacitiesXHR.onreadystatechange = () => {
-          if (capacitiesXHR.readyState === XMLHttpRequest.DONE) {
-            if (capacitiesXHR.response) {
-              let capacities = JSON.parse(capacitiesXHR.response);
-              console.log(capacities);
               capacities.forEach((capacity) => {
                 let capacityElement =
-                  "<option value='" +
-                  capacity.capacity +
-                  "' >" +
-                  capacity.capacity +
-                  "</option>";
+                  "<option value='" + capacity + "' >" + capacity + "</option>";
                 document
                   .querySelector("#capacities")
                   .insertAdjacentHTML("beforeend", capacityElement);
@@ -288,8 +259,9 @@
             }
           }
         };
-        capacitiesXHR.open("GET", "/capacities");
-        capacitiesXHR.send();
+
+        xhr.open("GET", "/dropdowns");
+        xhr.send();
       }
 
       function openModal(id) {
@@ -299,6 +271,7 @@
       function closeModal(id) {
         document.getElementById(id).classList.replace("modal-open", "modal");
       }
+
 
       searchForm.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -328,8 +301,10 @@
                       '<p>Location:' + venue.location + '</p>' +
                       '<p>Category:' + venue.category +'</p>' +
                       '<p>Capacity:' + venue.capacity+ '</p>' +
+                      '{% if session["email"] and session["user_mode"]=="CUSTOMER" %}' +
                       '<div class="reservation-button">Reserve Now!</div>' +
-                      '<input type="datetime-local" name="reservation-datetime" />' +
+                      '<input type="datetime-local" name="reservation-datetime" /> ' +
+                      '{% endif %}' +
                     '</div>' +
                   '</div>' +
                 '</div>'
@@ -351,6 +326,7 @@
         xhr.send(data);
 
       });
+
 
     </script>
   </body>

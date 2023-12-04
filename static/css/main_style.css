@@ -100,12 +100,19 @@ body {
   font-size: 1rem;
 }
 .account-menu-content p {
-  color: black;
+  color: white;
   background-color: #5497a7;
   width: 70%;
   text-align: center;
   padding: 5% 0;
   border-radius: 10px;
+}
+
+.account-menu-content a {
+  color: #5497a7;
+  font-weight: bold;
+  font-size: 0.8rem;
+  margin-bottom: 4%;
 }
 .signIn-form {
   display: flex;
@@ -124,8 +131,17 @@ body {
 }
 
 .signIn-form > button {
-  margin: 3% 0;
+  color: white;
+  background-color: #5497a7;
+  width: 50%;
+  text-align: center;
+  padding: 3% 0;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-bottom: 4%;
+
 }
+
 /* Switch Styling*/
 label {
   font-size: 13px;
@@ -400,7 +416,7 @@ label {
   justify-content: flex-start;
   align-items: center;
   color: black;
-  border: solid red 2px;
+  
 }
 .reservation-button {
   display: flex;
