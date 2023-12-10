@@ -19,6 +19,10 @@ ownerID_query = ("SELECT ownerId FROM owner WHERE email=%s ")
 
 cust_signIn = ("SELECT COUNT(*) AS count FROM customer WHERE email=%s AND password=%s ")
 
+owner_create = ("INSERT INTO owner(firstName,lastName,phoneNb,email,password) values(%s,%s,%s,%s,%s)")
+
+customer_create = ("INSERT INTO customer(firstName,lastName,phoneNb,email,password) values(%s,%s,%s,%s,%s)")
+
 
 try:
     cnx = mysql.connector.MySQLConnection(user='root', password='root',
@@ -107,3 +111,14 @@ def signIn(email,password,user_mode):
             cursor.close()
             return "error"
         
+def createAccount(firstName,lastName,phoneNb,email,password,userMode):
+    cursor = cnx.cursor()
+    if userMode == "owner":
+        cursor.execute(owner_create,(firstName,lastName,phoneNb,email,password))
+        cnx.commit()
+    else :
+        cursor.execute(customer_create,(firstName,lastName,phoneNb,email,password))
+        cnx.commit()
+        
+    cursor.close()
+

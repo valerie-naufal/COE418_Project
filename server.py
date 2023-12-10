@@ -24,6 +24,13 @@ def createPage():
 @app.post('/createAccount')
 def createAccount():
     print("account created")
+    firstName = request.form["firstName"]
+    lastName = request.form["lastName"]
+    phoneNb = request.form["phoneNb"]
+    email = request.form["email"]
+    password = request.form["password"]
+    userMode = request.form["userMode"]
+    utils.createAccount(firstName,lastName,phoneNb,email,password,userMode)
     return redirect("/")
 
 @app.get('/listVenue')

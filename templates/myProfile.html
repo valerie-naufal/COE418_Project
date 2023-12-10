@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+    <meta name="viewport" content="width=device-width , initial-scale=1.0" />
+    <title>Locatable</title>
+
+    <!-- custom css file link -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/createAccount.css')}}"
+    />
+  </head>
+
+  <body>
+    <!--account form starts-->
+    <div class="account-form">
+      <h3>create your account</h3>
+      <form method="POST" action="/createAccount">
+        <input
+          name="firstName"
+          type="text"
+          placeholder="First Name"
+          class="box"
+        />
+        <input
+          name="lastName"
+          type="text"
+          placeholder="Last Name"
+          class="box"
+        />
+        <input
+          name="phoneNb"
+          type="text"
+          placeholder="Phone Number"
+          class="box"
+        />
+        <input
+          name="email"
+          type="email"
+          placeholder="Email Address"
+          class="box"
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          class="box"
+        />
+        <div class="checkbox-sect">
+          <label> venue owner </label>
+          <input type="radio" name="userMode" value="owner" />
+        </div>
+        <div class="checkbox-sect">
+          <label> customer </label>
+          <input type="radio" name="userMode" value="customer" />
+        </div>
+
+        <input type="submit" value="create now" class="btn" />
+      </form>
+    </div>
+    <!--account form ends-->
+  </body>
+</html>

@@ -108,6 +108,17 @@ body {
   border-radius: 10px;
 }
 
+.account-menu-content > input{
+  color: white;
+  background-color: #5497a7;
+  width: 70%;
+  text-align: center;
+  padding: 5% 0;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-top: 4%;
+}
+
 .account-menu-content a {
   color: #5497a7;
   font-weight: bold;
