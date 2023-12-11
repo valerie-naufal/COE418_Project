@@ -38,6 +38,7 @@
               {% endif %}
             </div>
             <div class="account-menu-content" id="account-menu-loggedOut">
+              <p onclick="window.location.assign('myProfile')" >MY PROFILE</p>
               <p onclick="logOut()">LOG OUT</p>
             </div>
             <div class="account-menu-content" id="account-menu-loggedIn">
@@ -50,12 +51,12 @@
               >
                 <div class="input-section">
                   <label for="email">Email:</label>
-                  <input type="email" id="email" name="email" />
+                  <input type="email" id="email" name="email" required/>
                 </div>
 
                 <div class="input-section">
                   <label for="password">Password:</label>
-                  <input type="password" id="password" name="password" />
+                  <input type="password" id="password" name="password" required/>
                 </div>
                 <div class="input-section">
                   <label class="switch user-selector-switch">
@@ -86,7 +87,7 @@
         {% for venue in venuesList %}
         <div class="venue-item">
           <div class="venue-image" onclick="openModal('venue{{ loop.index }}')">
-            IMAGE
+            <img src="{{venue.imgPath}}"/>
           </div>
           <p class="venue-title">{{venue.name}}</p>
         </div>
@@ -95,15 +96,61 @@
             <i class="fas fa-times"></i>
           </span>
           <div class="modal-content">
-            <div class="modal-image"></div>
+            <div class="modal-image"><img src="{{venue.imgPath}}"/></div>
             <div class="modal-text">
               <p>{{venue.name}}</p>
               <p>Location: {{venue.location}}</p>
               <p>Category: {{venue.category}}</p>
               <p>Capacity: {{venue.capacity}}</p>
+              <p>Price: {{venue.price}}</p>
               {% if session["email"] and session["user_mode"]=="CUSTOMER" %}
-              <div class="reservation-button">Reserve Now!</div>
-              <input type="datetime-local" name="reservation-datetime" />
+              <form class="reservation-form" action="/reserve" method="POST">
+                <input name="venue_name" value="{{venue.name}}" hidden/>
+                <label for="starttime">Start Time</label>
+                <input type="datetime-local" name="datetime" />
+                <label for="nbHours">Number of Hours</label>
+                <input type="number" step="0.5" min="0" placeholder="Nb of Hours" name="nbHours" class="box" />
+                
+                <select  name="photographer">
+                  <option value="0">Choose Photographer</option>
+                  <option value="700">Joe Brown</option>
+                  <option value="701">Karl Miles</option>
+                  <option value="702">Miltch Clayton</option>
+                  <option value="703">Jocelyn Spears</option>
+                  <option value="704">Friedrick Chase</option>
+                </select>
+
+                <select name="catering">
+                  <option value="0">Choose Catering</option>
+                  <option value="500">Jodie Townsend</option>
+                  <option value="501">Antonio Flynn</option>
+                  <option value="502">faye Boyer</option>
+                  <option value="503">Deb Merril</option>
+                  <option value="504">Adriana Blair</option>
+                </select>
+
+                <select  name="entertainment">
+                  <option value="0">Choose Entertainment</option>
+                  <option value="600">Patrick Deleon</option>
+                  <option value="601">Joanne Johnson</option>
+                  <option value="602">Russel Middleton</option>
+                  <option value="603">Jerome Crane</option>
+                  <option value="604">Tyler Thompson</option>
+                </select>
+
+                <select name="planner">
+                  <option value="0">Choose Event Planner</option>
+                  <option value="400">Thelma Noble</option>
+                  <option value="401">Theresa Proctor</option>
+                  <option value="402">Sandy Burges</option>
+                  <option value="403">Mindy McConnell</option>
+                  <option value="404">Roni Webster</option>
+                </select>
+
+                <button type="submit" class="reservation-button">Reserve Now!</button>
+                
+              </form>
+              
               {% endif %}
             </div>
           </div>

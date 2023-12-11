@@ -23,38 +23,43 @@
           type="text"
           placeholder="First Name"
           class="box"
+          required
         />
         <input
           name="lastName"
           type="text"
           placeholder="Last Name"
           class="box"
+          required
         />
         <input
           name="phoneNb"
           type="text"
           placeholder="Phone Number"
           class="box"
+          required
         />
         <input
           name="email"
           type="email"
           placeholder="Email Address"
           class="box"
+          required
         />
         <input
           name="password"
           type="password"
           placeholder="Password"
           class="box"
+          required
         />
         <div class="checkbox-sect">
           <label> venue owner </label>
-          <input type="radio" name="userMode" value="owner" />
+          <input type="radio" name="userMode" value="owner" required/>
         </div>
         <div class="checkbox-sect">
           <label> customer </label>
-          <input type="radio" name="userMode" value="customer" />
+          <input type="radio" name="userMode" value="customer" required/>
         </div>
 
         <input type="submit" value="create now" class="btn" />
