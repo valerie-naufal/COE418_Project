@@ -9,57 +9,48 @@
     <!-- custom css file link -->
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/createAccount.css')}}"
+      href= "../static/css/myProfile.css"
     />
   </head>
 
   <body>
+    <header></header>
     <!--account form starts-->
-    <div class="account-form">
-      <h3>create your account</h3>
-      <form method="POST" action="/createAccount">
-        <input
-          name="firstName"
-          type="text"
-          placeholder="First Name"
-          class="box"
-        />
-        <input
-          name="lastName"
-          type="text"
-          placeholder="Last Name"
-          class="box"
-        />
-        <input
-          name="phoneNb"
-          type="text"
-          placeholder="Phone Number"
-          class="box"
-        />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email Address"
-          class="box"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          class="box"
-        />
-        <div class="checkbox-sect">
-          <label> venue owner </label>
-          <input type="radio" name="userMode" value="owner" />
+    <div class="profile-container">
+      <h1>My Profile Summary</h1>
+          <div class="profile-box">
+            <div class="profile-info">
+              <div>
+                <div>Event ID:</div>
+                <span id="eventID">12345</span>
+              </div>
+      
+              <div>
+                <div>Venue:</div>
+                <span id="venue">Sample Venue</span>
+              </div>
+      
+              <div>
+                <div>Date:</div>
+                <span id="date">2023-12-12</span>
+              </div>
+      
+              <div>
+                <div>Amenities:</div>
+                <span id="amenities">Sample Amenities</span>
+              </div>
+      
+              <div>
+                <div>Total Price ($):</div>
+                <span id="totalPrice">100.00</span>
+              </div>
+              
+              <div>
+                <button class="cancel-button">Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="checkbox-sect">
-          <label> customer </label>
-          <input type="radio" name="userMode" value="customer" />
-        </div>
-
-        <input type="submit" value="create now" class="btn" />
-      </form>
-    </div>
-    <!--account form ends-->
+    <footer></footer>
   </body>
 </html>
