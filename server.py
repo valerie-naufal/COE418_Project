@@ -20,7 +20,9 @@ def home():
 
 @app.get('/myProfile')
 def myprofile():
-    return render_template('myProfile.html')
+    email = session["email"]
+    events = utils.get_event(email)
+    return render_template('myProfile.html',eventList=events)
 
 @app.route('/explore')
 def explore():

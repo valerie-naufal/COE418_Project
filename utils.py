@@ -31,6 +31,7 @@ insertEvent_query = ("INSERT INTO event(date,photographerID,cateringID,entertain
 
 book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,price) value((select eventID from event where date=%s),%s,%s,%s,%s,%s,%s);")
 
+get_event_query = ("SELECT E.eventID,V.name,B.date,B.price*nBHours AS total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
 
 try:
     cnx = mysql.connector.MySQLConnection(user='root', password='root',
@@ -50,6 +51,17 @@ def get_venues():
 
     cursor.close()
     return venues
+
+def get_event(email):
+    events =[]
+    cursor = cnx.cursor()
+    custID = get_custID(email)
+    cursor.execute(get_event_query,(custID,))
+    for (eventID,name,date,total) in cursor:
+        events.append({"eventID":eventID,"name":name,"date":date,"total":total})
+    
+    cursor.close()
+    return events
 
 def get_dropdowns():
     locations =[]
@@ -89,7 +101,6 @@ def search(location,category,capacity):
     return results
 
 def reserve(date,photographer,catering,entertainment,planner,starttime,nbHours,venue_name,email):
-    print("in reserve")
     cursor = cnx.cursor()
     venueID,price = get_venueInfo(venue_name)
     custID = get_custID(email)

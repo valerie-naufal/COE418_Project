@@ -18,38 +18,42 @@
     <!--account form starts-->
     <div class="profile-container">
       <h1>My Profile Summary</h1>
+      {% for event in eventList %}
           <div class="profile-box">
+            
             <div class="profile-info">
               <div>
                 <div>Event ID:</div>
-                <span id="eventID">12345</span>
+                <span id="eventID">{{event.eventID}}</span>
               </div>
       
               <div>
                 <div>Venue:</div>
-                <span id="venue">Sample Venue</span>
+                <span id="venue">{{event.name}}</span>
               </div>
       
               <div>
                 <div>Date:</div>
-                <span id="date">2023-12-12</span>
+                <span id="date">{{event.date}}</span>
               </div>
       
-              <div>
+              <!-- <div>
                 <div>Amenities:</div>
-                <span id="amenities">Sample Amenities</span>
-              </div>
+                <span id="amenities">{{event.photographer}}</span>
+              </div> -->
       
               <div>
                 <div>Total Price ($):</div>
-                <span id="totalPrice">100.00</span>
+                <span id="totalPrice">{{event.total}}</span>
               </div>
               
               <div>
                 <button class="cancel-button">Cancel</button>
               </div>
             </div>
+            
           </div>
+          {% endfor %}
         </div>
     <footer></footer>
   </body>

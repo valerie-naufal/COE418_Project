@@ -30,6 +30,7 @@ header, footer {
     flex-direction: column;
     align-items: center;
     width: 100%; 
+    margin: 2% 0;
   }
 
   .profile-box h1 {
