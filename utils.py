@@ -33,6 +33,9 @@ book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,pr
 
 get_event_query = ("SELECT E.eventID,V.name,B.date,B.price*nBHours AS total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
 
+cancel_book = ("DELETE FROM book WHERE eventID= %s")
+cancel_event =("DELETE FROM event WHERE eventID=%s" )
+
 try:
     cnx = mysql.connector.MySQLConnection(user='root', password='root',
                                 host='127.0.0.1',
@@ -62,6 +65,14 @@ def get_event(email):
     
     cursor.close()
     return events
+
+def cancelEvent(eventID):
+    cursor = cnx.cursor()
+    cursor.execute(cancel_book,(eventID,))
+    cnx.commit()
+    cursor.execute(cancel_event,(eventID,))
+    cnx.commit()
+    cursor.close()
 
 def get_dropdowns():
     locations =[]
@@ -111,7 +122,6 @@ def reserve(date,photographer,catering,entertainment,planner,starttime,nbHours,v
     cnx.commit()
     cursor.close()
 
-
 def get_custID(email):
     ID = ""
     cursor = cnx.cursor()
@@ -120,7 +130,6 @@ def get_custID(email):
         ID = custId
     cursor.close()
     return ID
-
 
 def get_venueInfo(name):
     ID = ""

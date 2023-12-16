@@ -24,6 +24,12 @@ def myprofile():
     events = utils.get_event(email)
     return render_template('myProfile.html',eventList=events)
 
+@app.post("/cancel")
+def cancel():
+    eventID=request.form["eventID"]
+    utils.cancelEvent(eventID)
+    return redirect('/myProfile')
+
 @app.route('/explore')
 def explore():
     venues = utils.get_venues()
@@ -89,7 +95,6 @@ def signInPost():
         else :
             return "error"
 
-
 # GET Method to check logIn status
 @app.get('/loggedIn')
 def loggedIn():
@@ -119,7 +124,6 @@ def search_route():
 
 @app.post("/reserve")
 def reserve_route():
-
     date_time = request.form["datetime"]
     date_parsed = datetime.strptime(date_time, '%Y-%m-%dT%H:%M')
     date = str(date_parsed.year) + "-" + str(date_parsed.month) + "-" + str(date_parsed.day)

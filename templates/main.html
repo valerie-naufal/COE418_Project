@@ -310,6 +310,7 @@
                       '<p>Price: ' + venue.price + '</p>' +
                       '{% if session["email"] and session["user_mode"]=="CUSTOMER" %}' +
                       '<form class="reservation-form" action="/reserve" method="POST">' +
+                        '<input name="venue_name" value="'+ venue.name+ '" hidden />'+
                         '<label for="starttime">Start Time</label>' +
                         '<input type="datetime-local" name="datetime" />' +
                         '<label for="nbHours">Number of Hours</label>' +
@@ -328,7 +329,7 @@
                           '<option value="0">Choose Catering</option>' +
                           '<option value="500">Jodie Townsend</option>' +
                           '<option value="501">Antonio Flynn</option>' +
-                          '<option value="502">faye Boyer</option>' +
+                          '<option value="502">Faye Boyer</option>' +
                           '<option value="503">Deb Merril</option>' +
                           '<option value="504">Adriana Blair</option>' +
                         '</select>' +
