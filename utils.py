@@ -29,11 +29,11 @@ customer_create = ("INSERT INTO customer(firstName,lastName,phoneNb,email,passwo
 
 insertEvent_query = ("INSERT INTO event(date,photographerID,cateringID,entertainmentID,plannerID) values(%s,%s,%s,%s,%s)")
 
-book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,price) value((select eventID from event where date=%s),%s,%s,%s,%s,%s,%s);")
+book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,total) value((select eventID from event where date=%s),%s,%s,%s,%s,%s,%s);")
 
-get_event_query = ("SELECT E.eventID,V.name,B.date,B.price*nBHours AS total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
+get_event_query = ("SELECT E.eventID,V.name,B.date,total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
 
-cancel_book = ("DELETE FROM book WHERE eventID= %s")
+cancel_book = ("DELETE FROM book WHERE eventID= %s") 
 cancel_event =("DELETE FROM event WHERE eventID=%s" )
 
 try:
