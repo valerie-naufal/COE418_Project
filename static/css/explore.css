@@ -377,12 +377,6 @@ label {
   justify-content: center;
   align-items: center;
 }
-.reservation-form > div {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .modal-text p {
   margin: 0;
