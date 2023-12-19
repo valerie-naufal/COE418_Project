@@ -31,7 +31,7 @@ insertEvent_query = ("INSERT INTO event(date,photographerID,cateringID,entertain
 
 book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,total) value((select eventID from event where date=%s),%s,%s,%s,%s,%s,%s);")
 
-get_event_query = ("SELECT E.eventID,V.name,B.date,total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
+get_event_query = ("SELECT E.eventID,V.name,B.date,total, E.photographerID, E.cateringID, E.entertainmentID, E.plannerID FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
 
 get_venues_profile = ("SELECT venueID,name,location,category,capacity,price FROM venue WHERE ownerID=%s")
 
@@ -46,7 +46,7 @@ try:
     
 except:
     print("Could not connect")
-    
+
 def get_venues():
     venues = []
     cursor = cnx.cursor()
@@ -63,8 +63,8 @@ def get_event(email):
     cursor = cnx.cursor()
     custID = get_custID(email)
     cursor.execute(get_event_query,(custID,))
-    for (eventID,name,date,total) in cursor:
-        events.append({"eventID":eventID,"name":name,"date":date,"total":total})
+    for (eventID,name,date,total, photographerID, cateringID, entertainmentID, plannerID) in cursor:
+        events.append({"eventID":eventID,"name":name,"date":date,"total":total, "photographerID": photographerID, "cateringID":cateringID, "entertainmentID":entertainmentID, "plannerID":plannerID})
     
     cursor.close()
     return events

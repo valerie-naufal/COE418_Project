@@ -114,7 +114,7 @@ body {
   text-align: center;
   padding: 5% 0;
   border-radius: 10px;
-  font-size:1rem;
+  font-size: 1rem;
 }
 .account-menu-content a {
   color: #5497a7;
@@ -265,9 +265,9 @@ label {
   color: black;
 }
 
-.venue-image img{
-  width:80%;
-  height:auto;
+.venue-image img {
+  width: 80%;
+  height: auto;
 }
 
 .venue-title {
@@ -341,9 +341,9 @@ label {
   align-items: center;
 }
 
-.modal-image img{
-  width:70%;
-  height:auto;
+.modal-image img {
+  width: 80%;
+  height: auto;
 }
 
 .modal-text {
@@ -351,24 +351,60 @@ label {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   color: black;
-  
+}
+.modal-text-top {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.modal-text-bottom {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.modal-text-top > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reservation-form > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.modal-text p{
-  margin: 8px 0;
+.modal-text p {
+  margin: 0;
+}
+.venue-title {
+  font-weight: bold;
 }
 
 .reservation-form {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
   height: 100%;
-  width: 65%;
+  width: 100%;
+}
+.reservation-form > div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .reservation-form select {
@@ -376,7 +412,7 @@ label {
   border-radius: 10px;
   background-color: white;
   font-weight: bold;
-  height: 12%;
+  height: 150%;
   margin-left: 1.5%;
 }
 
@@ -385,15 +421,15 @@ label {
   justify-content: center;
   align-items: center;
   width: 45%;
-  height: 15%;
+  height: 12%;
   border-radius: 10px;
   background-color: #5497a7;
   color: white;
   font-weight: bold;
   font-size: 1rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  outline:none;
-  border:none;
+  outline: none;
+  border: none;
   cursor: pointer;
   margin: 2% 0;
 }

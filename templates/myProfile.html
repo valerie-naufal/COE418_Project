@@ -15,7 +15,7 @@
     <!--account form starts-->
     <div class="profile-container">
       <h1>My Profile Summary</h1>
-      {% if session["userMode"] == "CUSTOMER"%} 
+      {% if session["user_mode"] == "CUSTOMER"%} 
         {% for event in dataList %}
         <form
           class="event-form"
@@ -26,29 +26,42 @@
           <div class="profile-box">
             <div class="profile-info">
               <div>
-                <div>Event ID:</div>
+                <div class="info-title">Event ID:</div>
                 <input name="eventID" hidden value="{{event.eventID}}" /><span
                   >{{event.eventID}}</span
                 >
               </div>
 
               <div>
-                <div>Venue:</div>
+                <div class="info-title">Venue:</div>
                 <span id="venue">{{event.name}}</span>
               </div>
 
               <div>
-                <div>Date:</div>
+                <div class="info-title">Date:</div>
                 <span id="date">{{event.date}}</span>
               </div>
 
               <div>
-                <div>Amenities:</div>
-                <span id="amenities">{{event.photographer}}</span>
+                <div class="info-title">Amenities:</div>
+                <span id="amenities">{{event.photographer}}
+                  {% if event.photographerID %}
+                    photographer
+                  {% endif %}
+                  {% if event.cateringID %}
+                    catering
+                  {% endif %}
+                  {% if event.entertainmentID %}
+                    entertainment
+                  {% endif %}
+                  {% if event.plannerID %}
+                    planner
+                  {% endif %}
+                </span>
               </div>
 
               <div>
-                <div>Total Price ($):</div>
+                <div class="info-title">Total Price ($):</div>
                 <span id="totalPrice">{{event.total}}</span>
               </div>
 
@@ -103,7 +116,7 @@
               </div>
 
               <div>
-                <button type="submit">CANCEL</button>
+                <button type="submit">DELETE</button>
               </div>
             </div>
           </div>
