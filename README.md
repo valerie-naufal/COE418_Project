@@ -1,4 +1,4 @@
-# Flask Template Project
+# COE418_Project (Locatable Webapp)
 
 ## File Structure
 
