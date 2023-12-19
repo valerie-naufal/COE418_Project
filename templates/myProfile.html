@@ -7,42 +7,46 @@
     <title>Locatable</title>
 
     <!-- custom css file link -->
-    <link
-      rel="stylesheet"
-      href= "../static/css/myProfile.css"
-    />
+    <link rel="stylesheet" href="../static/css/myProfile.css" />
   </head>
 
   <body>
-    <header></header>
+    <header><img onclick="history.back()" src="../static/images/arrow-back.svg"/></header>
     <!--account form starts-->
     <div class="profile-container">
       <h1>My Profile Summary</h1>
-      {% for event in eventList %}
-      <form class="event-form" id={{event.eventID}} action="/cancel" method="POST">
+      {% if session["userMode"] == "CUSTOMER"%} 
+        {% for event in dataList %}
+        <form
+          class="event-form"
+          id="{{event.eventID}}"
+          action="/cancel"
+          method="POST"
+        >
           <div class="profile-box">
-            
             <div class="profile-info">
               <div>
                 <div>Event ID:</div>
-                <input name="eventID" hidden value={{event.eventID}} /><span>{{event.eventID}}</span>
+                <input name="eventID" hidden value="{{event.eventID}}" /><span
+                  >{{event.eventID}}</span
+                >
               </div>
-      
+
               <div>
                 <div>Venue:</div>
                 <span id="venue">{{event.name}}</span>
               </div>
-      
+
               <div>
                 <div>Date:</div>
                 <span id="date">{{event.date}}</span>
               </div>
-      
+
               <div>
                 <div>Amenities:</div>
                 <span id="amenities">{{event.photographer}}</span>
               </div>
-      
+
               <div>
                 <div>Total Price ($):</div>
                 <span id="totalPrice">{{event.total}}</span>
@@ -51,17 +55,63 @@
               <div>
                 <button type="submit">CANCEL</button>
               </div>
-           
-
             </div>
-            
           </div>
         </form>
-          {% endfor %}
-        </div>
-        <script>
-         
-        </script>
-        <footer></footer>
+        {% endfor %}
+      {% else %}
+
+        {% for venue in dataList %}
+        <form
+          class="venue-form"
+          id="{{venue.venueID}}"
+          action="/cancel"
+          method="POST"
+        >
+          <div class="profile-box">
+            <div class="profile-info">
+              <div>
+                <div>Venue ID:</div>
+                <input name="venueID" hidden value="{{venue.venueID}}" /><span
+                  >{{venue.venueID}}</span
+                >
+              </div>
+
+              <div>
+                <div>Name:</div>
+                <span id="name">{{venue.name}}</span>
+              </div>
+
+              <div>
+                <div>Location:</div>
+                <span id="location">{{venue.location}}</span>
+              </div>
+
+              <div>
+                <div>Category:</div>
+                <span id="category">{{venue.category}}</span>
+              </div>
+
+              <div>
+                <div>Capacity:</div>
+                <span id="capacity">{{venue.capacity}}</span>
+              </div>
+
+              <div>
+                <div>Price:</div>
+                <span id="price">{{venue.price}}</span>
+              </div>
+
+              <div>
+                <button type="submit">CANCEL</button>
+              </div>
+            </div>
+          </div>
+        </form>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <script></script>
+    <footer></footer>
   </body>
 </html>

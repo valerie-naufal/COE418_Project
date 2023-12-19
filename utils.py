@@ -33,8 +33,11 @@ book_query = ("INSERT INTO book(eventID,venueID,custID,date,starttime,nbHours,to
 
 get_event_query = ("SELECT E.eventID,V.name,B.date,total FROM event E, venue V, book B WHERE B.venueID=V.venueID AND E.eventID=B.eventID AND custID=%s")
 
-cancel_book = ("DELETE FROM book WHERE eventID= %s") 
+get_venues_profile = ("SELECT venueID,name,location,category,capacity,price FROM venue WHERE ownerID=%s")
+
 cancel_event =("DELETE FROM event WHERE eventID=%s" )
+
+cancel_venue = ("DELETE FROM venue WHERE venueID=%s" )
 
 try:
     cnx = mysql.connector.MySQLConnection(user='root', password='root',
@@ -66,11 +69,26 @@ def get_event(email):
     cursor.close()
     return events
 
+def get_venue_profile(email):
+    venue =[]
+    cursor = cnx.cursor()
+    ownerID = get_owner_Id(email)
+    cursor.execute(get_venues_profile,(ownerID,))
+    for (venueID,name,location,category,capacity,price) in cursor:
+        venue.append({"venueID":venueID,"name":name,"location":location,"category":category,"capacity":capacity,"price":price})
+    
+    cursor.close()
+    return venue
+
 def cancelEvent(eventID):
     cursor = cnx.cursor()
-    cursor.execute(cancel_book,(eventID,))
-    cnx.commit()
     cursor.execute(cancel_event,(eventID,))
+    cnx.commit()
+    cursor.close()
+
+def deleteVenue(venueID):
+    cursor = cnx.cursor()
+    cursor.execute(cancel_venue,(venueID,))
     cnx.commit()
     cursor.close()
 

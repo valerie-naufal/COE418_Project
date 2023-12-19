@@ -10,6 +10,15 @@ header, footer {
   padding: 10px;
   color: #fff;
   height: 60px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+header img {
+  margin-left: 10px;
+  width: 4%;
+  cursor: pointer;
 }
 
 

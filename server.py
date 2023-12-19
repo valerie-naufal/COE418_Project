@@ -20,14 +20,23 @@ def home():
 
 @app.get('/myProfile')
 def myprofile():
+    data=''
     email = session["email"]
-    events = utils.get_event(email)
-    return render_template('myProfile.html',eventList=events)
+    # Based on user mode selector in Sign In Form
+    if(session["user_mode"] == "CUSTOMER"):
+        data = utils.get_event(email)
+    else:
+        data=utils.get_venue_profile(email)
+    return render_template('myProfile.html',dataList=data)
 
 @app.post("/cancel")
 def cancel():
-    eventID=request.form["eventID"]
-    utils.cancelEvent(eventID)
+    if(session["user_mode"] == "CUSTOMER"):
+        eventID=request.form["eventID"]
+        utils.cancelEvent(eventID)
+    else: 
+        venueID=request.form["venueID"]
+        utils.deleteVenue(venueID)
     return redirect('/myProfile')
 
 @app.route('/explore')
@@ -59,7 +68,6 @@ def listPage():
 
 @app.post('/listVenue')
 def listVenue():
-    print("in post listVenue")
     name = request.form["name"]
     location = request.form["location"]
     category = request.form["category"]

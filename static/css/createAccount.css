@@ -38,6 +38,15 @@ body {
   height: 100vh;
 }
 
+body img {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  position: fixed;
+  top: 5%;
+  left: 3%;
+}
+
 .btn {
   margin-top: 1rem;
   display: inline-block;
