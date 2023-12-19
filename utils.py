@@ -39,6 +39,8 @@ cancel_event =("DELETE FROM event WHERE eventID=%s" )
 
 cancel_venue = ("DELETE FROM venue WHERE venueID=%s" )
 
+update_venue = ("UPDATE venue SET name=%s, location=%s, category=%s, capacity=%s, price=%s WHERE venueID=%s")
+
 try:
     cnx = mysql.connector.MySQLConnection(user='root', password='root',
                                 host='127.0.0.1',
@@ -89,6 +91,12 @@ def cancelEvent(eventID):
 def deleteVenue(venueID):
     cursor = cnx.cursor()
     cursor.execute(cancel_venue,(venueID,))
+    cnx.commit()
+    cursor.close()
+
+def updateVenue(venueID, name, location, category, capacity, price):
+    cursor = cnx.cursor()
+    cursor.execute(update_venue, (name, location, category, capacity, price, venueID))
     cnx.commit()
     cursor.close()
 

@@ -59,12 +59,15 @@ header img {
   flex: 1;
   margin-right: 10px;
 }
+
 .info-title {
   font-weight: bold;
 }
+
 .profile-info span {
   text-align: center;
 }
+
 .profile-info button {
   background-color: #e74c3c;
   color: #fff;
@@ -73,6 +76,46 @@ header img {
   font-size: 16px;
   border-radius: 5px;
   cursor: pointer;
+}
+#edit-btn {
+  padding: 0 15px;
+}
+#edit-btn img{
+  width: 55%;
+  height: auto;
+}
+
+.edit-profile-dialog.hidden {
+  display: none;
+}
+
+.edit-profile-dialog {
+  border: solid #5497a7 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.edit-profile-dialog > div {
+  width: 100%;
+}
+
+.edit-profile-dialog input{
+  border-radius: 5px;
+  
+}
+
+.edit-profile-dialog button{
+  background-color: #5497a7;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 2% 0;
 }
 
 footer {

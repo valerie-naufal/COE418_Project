@@ -80,9 +80,8 @@
             <div class="profile-info">
               <div>
                 <div>Venue ID:</div>
-                <input name="venueID" hidden value="{{venue.venueID}}" /><span
-                  >{{venue.venueID}}</span
-                >
+                <input name="venueID" hidden value="{{venue.venueID}}" />
+                <span>{{venue.venueID}}</span>
               </div>
 
               <div>
@@ -111,15 +110,68 @@
               </div>
 
               <div>
+                <button id="edit-btn" onclick="openEditDialog(event, '{{venue.venueID}}')" ><img src="../static/images/edit-pen.svg"/></button>
+              </div>
+
+              <div>
                 <button type="submit">DELETE</button>
               </div>
+            
             </div>
+          </div>
+        </form>
+        
+        <form
+          class="edit-profile-dialog hidden"
+          id="{{venue.venueID}}-edit"
+          action="/editProfile"
+          method="POST"
+        >
+          <div>
+            <div>Venue ID:</div>
+            <input name="venueID" hidden value="{{venue.venueID}}" />
+            <span>{{venue.venueID}}</span>
+          </div>
+
+          <div>
+            <div>Name:</div>
+            <input name="venue-name" id="name" value="{{venue.name}}" />
+          </div>
+
+          <div>
+            <div>Location:</div>
+            <input name="location" id="location" value="{{venue.location}}" />
+          </div>
+
+          <div>
+            <div>Category:</div>
+            <input name="category" id="category" value="{{venue.category}}" />
+          </div>
+
+          <div>
+            <div>Capacity:</div>
+            <input name="capacity" id="capacity" type="number" value="{{venue.capacity}}" />
+          </div>
+
+          <div>
+            <div>Price:</div>
+            <input name="price" id="price" type="number" min="0" step="0.25" value="{{venue.price}}" />
+          </div>
+
+          <div>
+            <button type="submit">SAVE</button>
           </div>
         </form>
         {% endfor %}
       {% endif %}
     </div>
-    <script></script>
+    <script>
+      function openEditDialog(event, venueID){
+        event.preventDefault();
+        document.getElementById(venueID+"-edit").classList.toggle("hidden");
+      }
+
+    </script>
     <footer></footer>
   </body>
 </html>

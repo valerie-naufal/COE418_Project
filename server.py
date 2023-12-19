@@ -29,6 +29,17 @@ def myprofile():
         data=utils.get_venue_profile(email)
     return render_template('myProfile.html',dataList=data)
 
+@app.post("/editProfile")
+def edit_profile_route():
+    venueID=request.form["venueID"]
+    name= request.form["venue-name"]
+    location=request.form["location"]
+    category= request.form["category"]
+    capacity=request.form["capacity"]
+    price=request.form["price"]
+    utils.updateVenue(venueID, name, location, category, capacity, price)
+    return redirect("/myProfile")
+
 @app.post("/cancel")
 def cancel():
     if(session["user_mode"] == "CUSTOMER"):
